@@ -16,7 +16,7 @@ def digitalRead(pinno):
         return(bool(vars(pin)['pinA'+str(pinno-14)].st))
     else:
         return(bool(vars(pin)['pin'+str(pinno)].st))
-    
+
 def pinMode(pinno, mode):
     global pin
     if(mode == "INPUT"):
@@ -30,5 +30,11 @@ def digitalWrite(pinno, mode):
         pin.setvol(pinno, 5)
     elif(mode == False):
         pin.setvol(pinno, 0)
+def analogWrite(pinno, mode):
+    global render
+    global pin
+    pin.setvol(pinno, mode/51)
 def millis():
     return(datetime.datetime.now() - starttime)
+def analogRead(pinA):
+    return(int(pin.analogread(pinA)))
