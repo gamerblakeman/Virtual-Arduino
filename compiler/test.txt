@@ -1,0 +1,38 @@
+/*
+  DigitalReadSerial
+
+  Reads a digital input on pin 2, prints the result to the Serial Monitor
+
+  This example code is in the public domain.
+
+  http://www.arduino.cc/en/Tutorial/DigitalReadSerial
+*/
+#include <LiquidCrystal.h>
+// digital pin 2 has a pushbutton attached to it. Give it a name:
+int pushButton = 2;
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+// the setup routine runs once when you press reset:
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+  // make the pushbutton's pin an input:
+  pinMode(pushButton, INPUT);
+  pinMode(LED_BUILTIN, INPUT);
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("hello, world!");
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  // read the input pin:
+  int buttonState = digitalRead(pushButton);
+  digitalWrite(LED_BUILTIN, buttonState);
+  // print out the state of the button:
+  lcd.setCursor(0, 1);
+  lcd.print(buttonState);
+  delay(1);        // delay in between reads for stability
+}
