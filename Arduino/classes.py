@@ -73,6 +73,7 @@ class Box:
         self.vol=0
         self.type = 'output'
         self.st = 0
+        self.setA = 0
 
     def setsize(self):
         self.size = self.img.get_size()
@@ -217,27 +218,32 @@ class pin:
     
     def input(self, pin):
         #print(type(pin))
+        print(pin)
         if(type(pin) == int):
             if(pin > 13):
                 if(vars(self)['pinA'+str(pin -14)].type!= "dis"):
                     vars(self)['pinA'+str(pin -14)].chageimg('input0')
                     vars(self)['pinA'+str(pin -14)].type='input'
+                    self.analogstart(pin - 14)
             else:
                 if(vars(self)['pin'+str(pin)].type!= "dis"):
                     vars(self)['pin'+str(pin)].chageimg('input0')
                     vars(self)['pin'+str(pin)].type='input'
-        elif(pin.find('D') or pin.find('d')):
+        elif("D" in pin or 'd' in pin):
             pin = pin[1]
+            print(pin)
             #vars(self)[str(pin)].voltage(v)
             if(vars(self)['pin'+str(pin)].type!= "dis"):
                 vars(self)['pin'+str(pin)].chageimg('input0')
                 vars(self)['pin'+str(pin)].type='input'
-        elif(pin.find('A') or pin.find('a')):
+        elif("A" in pin or 'a' in pin):
+            print(pin)
             pin = pin[1]
             #vars(self)[str(pin)].voltage(v)
             if(vars(self)['pinA'+str(pin)].type!= "dis"):
                 vars(self)['pinA'+str(pin)].chageimg('input0')
                 vars(self)['pinA'+str(pin)].type='input'
+                self.analogstart(pin)
 
     def output(self, pin):
         #print(type(pin))
@@ -250,13 +256,13 @@ class pin:
                 if(vars(self)['pin'+str(pin)].type!= "dis"):
                     vars(self)['pin'+str(pin)].chageimg('0')
                     vars(self)['pin'+str(pin)].type='output'
-        elif(pin.find('D') or pin.find('d')):
+        elif("D" in pin or 'd' in pin):
             pin = pin[1]
             #vars(self)[str(pin)].voltage(v)
             if(vars(self)['pin'+str(pin)].type!= "dis"):
                 vars(self)['pin'+str(pin)].chageimg('0')
                 vars(self)['pin'+str(pin)].type='output'
-        elif(pin.find('A') or pin.find('a')):
+        elif("A" in pin or 'a' in pin):
             pin = pin[1]
             #vars(self)[str(pin)].voltage(v)
             if(vars(self)['pinA'+str(pin)].type!= "dis"):
@@ -269,20 +275,21 @@ class pin:
             if(type(pin) == int):
                 if(pin > 13):
                     if(vars(self)['pinA'+str(pin-14)].type=='input'):
-                        vars(self)['pinA'+str(pin -14)].chageimg('input1')
-                        vars(self)['pinA'+str(pin -14)].st = 1
+                        #vars(self)['pinA'+str(pin -14)].chageimg('input1')
+                        #vars(self)['pinA'+str(pin -14)].st = 1
+                        helpmegod = 0
                 else:
                     if(vars(self)['pin'+str(pin)].type=='input'):
                         vars(self)['pin'+str(pin)].chageimg('input1')
                         vars(self)['pin'+str(pin)].st = 1
 
-            elif(pin.find('D') or pin.find('d')):
+            elif("D" in pin or 'd' in pin):
                 pin = pin[1]
                 #vars(self)[str(pin)].voltage(v)
                 if(vars(self)['pin'+str(pin)].type=='input'):
                     vars(self)['pin'+str(pin)].chageimg('input1')
                     vars(self)['pin'+str(pin)].st = 1
-            elif(pin.find('A') or pin.find('a')):
+            elif("A" in pin or 'a' in pin):
                 pin = pin[1]
                 #vars(self)[str(pin)].voltage(v)
                 if(vars(self)['pinA'+str(pin)].type=='input'):
@@ -292,19 +299,20 @@ class pin:
             if(type(pin) == int):
                 if(pin > 13):
                     if(vars(self)['pinA'+str(pin-14)].type=='input'):
-                        vars(self)['pinA'+str(pin -14)].chageimg('input0')
-                        vars(self)['pinA'+str(pin -14)].st = 0
+                        helpmegod = 0
+                        #vars(self)['pinA'+str(pin -14)].chageimg('input0')
+                        #vars(self)['pinA'+str(pin -14)].st = 0
                 else:
                     if(vars(self)['pin'+str(pin)].type=='input'):
                         vars(self)['pin'+str(pin)].chageimg('input0')
                         vars(self)['pin'+str(pin)].st = 0
-            elif(pin.find('D') or pin.find('d')):
+            elif("D" in pin or 'd' in pin):
                 pin = pin[1]
                 #vars(self)[str(pin)].voltage(v)
                 if(vars(self)['pin'+str(pin)].type=='input'):
                     vars(self)['pin'+str(pin)].chageimg('input0')
                     vars(self)['pin'+str(pin)].st = 0
-            elif(pin.find('A') or pin.find('a')):
+            elif("A" in pin or 'a' in pin):
                 pin = pin[1]
                 #vars(self)[str(pin)].voltage(v)
                 if(vars(self)['pinA'+str(pin)].type=='input'):
@@ -315,6 +323,20 @@ class pin:
         for pin in array:
             vars(self)['pin'+str(pin)].chageimg('input0')
             vars(self)['pin'+str(pin)].type = "dis"
+    def analogstart(self, pin):
+        
+        self.args = ["/usr/local/opt/python@3.8/bin/python3.8", "/Users/james/Desktop/Virtal Rarduino/Arduino/analog.py", pin]
+        vars(self)['procA'+str(pin)] = subprocess.Popen(self.args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        time.sleep(4)
+        s_name = './Serial/ttyAlog'+pin+'o'
+        vars(self)['serA'+str(pin)] = serial.Serial(s_name)
+    def analogread(self, pin):
+        vars(self)['ser'+str(pin)].flushInput()
+        return(vars(self)['ser'+str(pin)].readline())
+
+
+
+
 class SerialA:
     def __init__(self):
         self.serial = fakeser()
