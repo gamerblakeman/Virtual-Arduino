@@ -196,56 +196,72 @@ class pin:
         #print(type(pin))
         if(type(pin) == int):
             if(pin > 13):
-                vars(self)['pinA'+str(pin -14)].voltage(v)
+                if(vars(self)['pinA'+str(pin -14)].type!= "dis"):
+                    vars(self)['pinA'+str(pin -14)].voltage(v)
             else:
-                vars(self)['pin'+str(pin)].voltage(v)
+                if(vars(self)['pin'+str(pin)].type!= "dis"):
+                    vars(self)['pin'+str(pin)].voltage(v)
         elif(pin.find('D') >= 0) or pin.find('d') >= 0:
             #print('digital1')
             pin = pin[1]
             #vars(self)[str(pin)].voltage(v)
-            vars(self)['pin'+str(pin)].voltage(v)
+            if(vars(self)['pin'+str(pin)].type!= "dis"):
+                vars(self)['pin'+str(pin)].voltage(v)
         elif(pin.find('A') >= 0 or pin.find('a')>= 0):
             #print(pin[1])
             pin = pin[1]
             #vars(self)[str(pin)].voltage(v)
-            vars(self)['pinA'+str(pin)].voltage(v)
+            if(vars(self)['pinA'+str(pin)].type!= "dis"):
+                vars(self)['pinA'+str(pin)].voltage(v)
         render()
     
     def input(self, pin):
         #print(type(pin))
         if(type(pin) == int):
             if(pin > 13):
-                vars(self)['pinA'+str(pin -14)].chageimg('input0')
-                vars(self)['pinA'+str(pin -14)].type='input'
+                if(vars(self)['pinA'+str(pin -14)].type!= "dis"):
+                    vars(self)['pinA'+str(pin -14)].chageimg('input0')
+                    vars(self)['pinA'+str(pin -14)].type='input'
             else:
-                vars(self)['pin'+str(pin)].chageimg('input0')
-                vars(self)['pin'+str(pin)].type='input'
+                if(vars(self)['pin'+str(pin)].type!= "dis"):
+                    vars(self)['pin'+str(pin)].chageimg('input0')
+                    vars(self)['pin'+str(pin)].type='input'
         elif(pin.find('D') or pin.find('d')):
             pin = pin[1]
             #vars(self)[str(pin)].voltage(v)
-            vars(self)['pin'+str(pin)].chageimg('input0')
-            vars(self)['pin'+str(pin)].type='input'
+            if(vars(self)['pin'+str(pin)].type!= "dis"):
+                vars(self)['pin'+str(pin)].chageimg('input0')
+                vars(self)['pin'+str(pin)].type='input'
         elif(pin.find('A') or pin.find('a')):
             pin = pin[1]
             #vars(self)[str(pin)].voltage(v)
-            vars(self)['pinA'+str(pin)].chageimg('input0')
-            vars(self)['pinA'+str(pin)].type='input'
+            if(vars(self)['pinA'+str(pin)].type!= "dis"):
+                vars(self)['pinA'+str(pin)].chageimg('input0')
+                vars(self)['pinA'+str(pin)].type='input'
 
     def output(self, pin):
         #print(type(pin))
         if(type(pin) == int):
-            vars(self)['pin'+str(pin)].chageimg('0')
-            vars(self)['pin'+str(pin)].type='output'
+            if(pin > 13):
+                if(vars(self)['pinA'+str(pin -14)].type!= "dis"):
+                    vars(self)['pinA'+str(pin -14)].chageimg('0')
+                    vars(self)['pinA'+str(pin -14)].type='output'
+            else:
+                if(vars(self)['pin'+str(pin)].type!= "dis"):
+                    vars(self)['pin'+str(pin)].chageimg('0')
+                    vars(self)['pin'+str(pin)].type='output'
         elif(pin.find('D') or pin.find('d')):
             pin = pin[1]
             #vars(self)[str(pin)].voltage(v)
-            vars(self)['pin'+str(pin)].chageimg('0')
-            vars(self)['pin'+str(pin)].type='output'
+            if(vars(self)['pin'+str(pin)].type!= "dis"):
+                vars(self)['pin'+str(pin)].chageimg('0')
+                vars(self)['pin'+str(pin)].type='output'
         elif(pin.find('A') or pin.find('a')):
             pin = pin[1]
             #vars(self)[str(pin)].voltage(v)
-            vars(self)['pinA'+str(pin)].chageimg('0')
-            vars(self)['pinA'+str(pin)].type='output'
+            if(vars(self)['pinA'+str(pin)].type!= "dis"):
+                vars(self)['pinA'+str(pin)].chageimg('0')
+                vars(self)['pinA'+str(pin)].type='output'
     
     def changeto(self, pin, st):
         #print(type(pin))
@@ -295,6 +311,10 @@ class pin:
                     vars(self)['pinA'+str(pin)].chageimg('input0')
                     vars(self)['pin'+str(pin)].st = 0
         render()
+    def disable(self, array):
+        for pin in array:
+            vars(self)['pin'+str(pin)].chageimg('input0')
+            vars(self)['pin'+str(pin)].type = "dis"
 class SerialA:
     def __init__(self):
         self.serial = fakeser()
