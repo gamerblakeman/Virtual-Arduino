@@ -23,4 +23,6 @@ Use Python 3!!</br>
   Socat ( brew install socat )</br>
 <h2>Use:</h2>
   install requirements</br>
+  place code in root directory</br>
+  Compile code with compile.sh</br>
   Run use the start.sh script!!!</br>
