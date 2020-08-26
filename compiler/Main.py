@@ -1,14 +1,14 @@
 f = open("Arduino/script.py", "w")
 print("James amazing compiler")
 print("report any bugs plz")
-print("Ver 1.0")
+print("Ver 1.1")
 print("current support: Arduino ('pins') and LCD")
 indent = 0
 indentA = 0
 i = 0 
 lcdneed = False
 #pin.disable([rs, en, d4, d5, d6, d7])
-array = ['from time import sleep\n', 'from functions import *\n', 'LED_BUILTIN = 13\n', 'OUTPUT = "OUTPUT"\n', 'INPUT = "INPUT"\n','HIGH = True\n', 'LOW = False\n','render = 0\n', 'pin = 0\n', 'Serial = 0\n', 'lcd =0\n','def init(renderA, pinA, SerialA, lcdA, starttime):\n', '    global render\n', '    global pin\n', '    global Serial\n', '    global lcd\n', '    lcd = lcdA\n','    Serial = SerialA\n', '    render = renderA\n', '    pin = pinA\n', '    initsc(render, pin, starttime)\n', '\n']
+array = ['from time import sleep\nfrom functions import *\nLED_BUILTIN = 13\nOUTPUT = "OUTPUT"\nINPUT = "INPUT"\nHIGH = True\nLOW = False\nrender = 0\npin = 0\nSerial = 0\nlcd =0\ndef init(renderA, pinA, SerialA, lcdA, starttime):\n    global render\n    global pin\n    global Serial\n    global lcd\n    lcd = lcdA\n    Serial = SerialA\n    render = renderA\n    pin = pinA\n    initsc(render, pin, starttime)\nA0, A1, A2, A3, A4, A5 = "A0","A1","A2","A3","A4","A5"\n\n']
 for i in array:
     f.write(i)
 with open("compiler/test.txt") as file_in:
@@ -50,6 +50,9 @@ with open("compiler/test.txt") as file_in:
                 print("LCD detected and implmented")
                 text = "    pin.disable([rs, en, d4, d5, d6, d7]) \n"
                 line = line + text
+        if("int" in line and ")" in line and "{" in line and "(" in line):
+            line = line.replace("int ", "def ")
+        
         while i != len(line):
             if(lock == 1):
                 out = out + line[i]
