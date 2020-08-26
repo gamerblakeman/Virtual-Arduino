@@ -1,8 +1,13 @@
 f = open("Arduino/script.py", "w")
+print("James amazing compiler")
+print("report any bugs plz")
+print("Ver 1.0")
+print("current support: Arduino ('pins') and LCD")
 indent = 0
 indentA = 0
 i = 0 
-
+lcdneed = False
+#pin.disable([rs, en, d4, d5, d6, d7])
 array = ['from time import sleep\n', 'from functions import *\n', 'LED_BUILTIN = 13\n', 'OUTPUT = "OUTPUT"\n', 'INPUT = "INPUT"\n','HIGH = True\n', 'LOW = False\n','render = 0\n', 'pin = 0\n', 'Serial = 0\n', 'lcd =0\n','def init(renderA, pinA, SerialA, lcdA, starttime):\n', '    global render\n', '    global pin\n', '    global Serial\n', '    global lcd\n', '    lcd = lcdA\n','    Serial = SerialA\n', '    render = renderA\n', '    pin = pinA\n', '    initsc(render, pin, starttime)\n', '\n']
 for i in array:
     f.write(i)
@@ -11,6 +16,8 @@ with open("compiler/test.txt") as file_in:
     lines = []
     
     for line in file_in:
+        #print("in")
+        #print(line)
         indent = indentA
         if("{"in line):
             indentA = indentA + 1
@@ -21,7 +28,16 @@ with open("compiler/test.txt") as file_in:
         elif("#include <LiquidCrystal.h>" in line):
             line = ""
         elif("rs =" in line and "en =" in line and "d4 =" in line):
-            line = ""
+            no = line.replace('rs =', '')
+            no = no.replace('en =', '')
+            no = no.replace('d4 =', '')
+            no = no.replace('d5 =', '')
+            no = no.replace('d6 =', '')
+            no = no.replace('d7 =', '')
+            #print(no)
+            text = "rs, en, d4, d5, d6, d7 ="
+            line = text + no
+            lcdneed = True
         i = 0
         if("} else {" in line):
             line = "else:"
@@ -29,6 +45,11 @@ with open("compiler/test.txt") as file_in:
             indentA = indentA - 1
         lock = 0
         out = ""
+        if("void setup()" in line):
+            if(lcdneed):
+                print("LCD detected and implmented")
+                text = "    pin.disable([rs, en, d4, d5, d6, d7]) \n"
+                line = line + text
         while i != len(line):
             if(lock == 1):
                 out = out + line[i]
@@ -57,7 +78,7 @@ with open("compiler/test.txt") as file_in:
             outtime = 0
             text = ""
             read = 0
-            print(time)
+            #print(time)
             for char in time:
                 if(char in "12234567890"):
                     outtime = (outtime * 10) + int(char)
@@ -67,7 +88,9 @@ with open("compiler/test.txt") as file_in:
                 elif(read == 1):
                     text = text + char
             time = float(outtime / 1000)
-            print(time)
+            #print(time)
+            if(text == ""):
+                text = "\n"
             line = "sleep("+str(time)+")    "+text
         i = 0
 
@@ -77,8 +100,12 @@ with open("compiler/test.txt") as file_in:
                 #print(i)
                 line = "    "+line
                 i = i + 1
-
+        #print("out")
+        #print(line)
+        #print("")
         lines.append(line)
         f.write(line)
+#print(lines)
 f.close()
+print("Done! to use run start.sh")
 #print(lines)
