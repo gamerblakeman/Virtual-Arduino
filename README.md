@@ -1,19 +1,19 @@
 # Virtual-Arduino
 
-Written in Python
-Use Python 3!!
-Only tested and works on:
-  Mac OS
+Written in Python</br>
+Use Python 3!!</br>
+Only tested and works on:</br>
+  Mac OS</br>
 
-Requirements:
-  PyGame (https://pypi.org/project/pygame/)
-  pySerial (https://pypi.org/project/pyserial/)
-  colour (https://pypi.org/project/colour/)
-Comes with python:
-  Datetime
-  OS
-  Time
-  Multiprocessing
-  Subprocess
-OS requirements:
-  Socat ( brew install socat )
+Requirements:</br>
+  PyGame (https://pypi.org/project/pygame/)</br>
+  pySerial (https://pypi.org/project/pyserial/)</br>
+  colour (https://pypi.org/project/colour/)</br>
+Comes with python:</br>
+  Datetime</br>
+  OS</br>
+  Time</br>
+  Multiprocessing</br>
+  Subprocess</br>
+OS requirements:</br>
+  Socat ( brew install socat )</br>
