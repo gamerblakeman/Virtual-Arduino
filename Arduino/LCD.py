@@ -228,8 +228,11 @@ class SerialA:
         self.inser = ""
         while(self.serial.available()):
             self.inser += chr(self.serial.read())
-
-        if("@%pos" in self.inser):
+        if(self.inser == '@%clear'):
+            lcd.clear()
+            self.inser = self.old
+            return(self.inser)
+        elif("@%pos" in self.inser):
             x = self.inser[5]
             #print(x)
             y = self.inser[7:]
@@ -278,6 +281,7 @@ while 1:
     if(Serial.available()):
         text = Serial.read(10)
         print(text)
-        lcd.clear()
+        
         lcd.write(text)
+        Serial.clear()
     lcd.render()
