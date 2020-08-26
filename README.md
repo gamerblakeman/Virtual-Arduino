@@ -21,3 +21,6 @@ Use Python 3!!</br>
 <h2>OS requirements:</h2></br>
 </br>
   Socat ( brew install socat )</br>
+<h2>Use:</h2>
+  install requirements</br>
+  Run use the start.sh script!!!</br>
