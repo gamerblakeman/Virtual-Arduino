@@ -394,3 +394,9 @@ class lcdC:
         text = str.encode(text)
         self.ser.write(text)
         self.text = text
+        time.sleep(0.1)
+    def clear(self):
+        lol = '@%clear'
+        lol = str.encode(lol)
+        self.ser.write(lol)
+        time.sleep(0.1)
