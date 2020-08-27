@@ -8,6 +8,7 @@ Use Python 3!!</br>
 </br>
 <h2>Requirements:</h2></br>
   PyGame (https://pypi.org/project/pygame/)</br>
+  PyGame Widgets (https://pypi.org/project/pygame-widgets/)</br>
   pySerial (https://pypi.org/project/pyserial/)</br>
   colour (https://pypi.org/project/colour/)</br>
   </br>
