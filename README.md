@@ -21,7 +21,10 @@ Use Python 3!!</br>
   Subprocess</br>
 <h2>OS requirements:</h2></br>
 </br>
+  <h3>MAC OS:</h3></br>
   Socat ( brew install socat )</br>
+  <h3>Lunx</h3></br>
+  Socat ( DEB: sudo apt-get install socat)(for info: https://www.cyberciti.biz/faq/linux-unix-tcp-port-forwarding/)</br>
 <h2>Use:</h2>
   install requirements</br>
   place code in root directory</br>
