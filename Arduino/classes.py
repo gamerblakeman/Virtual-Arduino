@@ -327,7 +327,7 @@ class pin:
         
         self.args = ["/usr/local/opt/python@3.8/bin/python3.8", "/Users/james/Desktop/Virtal Rarduino/Arduino/analog.py", pin]
         vars(self)['procA'+str(pin)] = subprocess.Popen(self.args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        time.sleep(4)
+        time.sleep(5)
         s_name = './Serial/ttyAlog'+pin+'o'
         vars(self)['serA'+str(pin)] = serial.Serial(s_name)
     def analogread(self, pin):
@@ -379,7 +379,7 @@ class lcdC:
     def begin(self, l, h):
         self.args = ["/usr/local/opt/python@3.8/bin/python3.8", "/Users/james/Desktop/Virtal Rarduino/Arduino/LCD.py"]
         self.child_proccess = subprocess.Popen(self.args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-        time.sleep(4)
+        time.sleep(5)
         s_name = './Serial/ttylcdo'
         self.ser = serial.Serial(s_name)
     def setCursor(self, x, y):
@@ -388,15 +388,15 @@ class lcdC:
         text = str('@%pos'+str(x)+','+str(y)+'\n')
         text = str.encode(text)
         self.ser.write(text)
-        time.sleep(0.1)
+        #time.sleep(0.1)
     def print(self, text):
         text = str(text)
-        text = str.encode(text)
+        text = str.encode(text+'\n')
         self.ser.write(text)
         self.text = text
-        time.sleep(0.1)
+        #time.sleep(0.1)
     def clear(self):
-        lol = '@%clear'
-        lol = str.encode(lol)
+        lol = '@clear'
+        lol = str.encode(lol+'\n')
         self.ser.write(lol)
-        time.sleep(0.1)
+        #time.sleep(0.1)
