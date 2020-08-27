@@ -126,4 +126,4 @@ while run:
     output.draw()
 
     pygame.display.update()
-    sleep(0.1)
+    #sleep(0.1)
