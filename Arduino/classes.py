@@ -66,7 +66,7 @@ class Box:
         self.y = y
         self.xm = x + 10
         self.ym = y + 10
-        self.img = pygame.image.load("Arduino/resources/images/"+file+".png")
+        self.img = pygame.image.load("./Arduino/resources/images/"+file+".png")
         self.rect = self.img.get_rect()
         self.rect.x=x
         self.rect.y=y
@@ -91,7 +91,7 @@ class Box:
         screen.blit(self.img, [self.x,self.y])
         
     def chageimg(self, file):
-        self.img = pygame.image.load("arduino/resources/images/"+file+".png")
+        self.img = pygame.image.load("./arduino/resources/images/"+file+".png")
     
     def voltage(self, v):
         if(v > 4.5):
@@ -325,7 +325,7 @@ class pin:
             vars(self)['pin'+str(pin)].type = "dis"
     def analogstart(self, pin):
         
-        self.args = ["/usr/local/opt/python@3.8/bin/python3.8", "/Users/james/Desktop/Virtal Rarduino/Arduino/analog.py", pin]
+        self.args = ["python3", "./Arduino/analog.py", pin]
         vars(self)['procA'+str(pin)] = subprocess.Popen(self.args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         time.sleep(5)
         s_name = './Serial/ttyAlog'+pin+'o'
@@ -377,7 +377,7 @@ class lcdC:
     def __init__(self):
         self.init = 1
     def begin(self, l, h):
-        self.args = ["/usr/local/opt/python@3.8/bin/python3.8", "/Users/james/Desktop/Virtal Rarduino/Arduino/LCD.py"]
+        self.args = ["python3", "./Arduino/LCD.py"]
         self.child_proccess = subprocess.Popen(self.args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         time.sleep(5)
         s_name = './Serial/ttylcdo'
