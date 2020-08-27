@@ -100,9 +100,10 @@ class lcdclass:
         self.write("                                          ")
         self.posX = 0
         self.posY = 0
+
     def setpos(self, x, y):
-        self.x = y
-        self.y = x
+        self.posX = int(y)
+        self.posY = int(x)
 
     def write(self, text):
         self.font = pygame.font.Font('freesansbold.ttf', 25) 
@@ -196,7 +197,7 @@ class SerialEmulator(object):
         while self.serial.inWaiting() > 0:
             #print(self.serial.inWaiting())
             #line+=str(self.serial.read(1))[2]
-            return(list(self.serial.read(1))[0])
+            return(list(self.serial.read(1)))
 
         #return (line)
 
@@ -224,24 +225,9 @@ class SerialA:
         text = str.encode(text+'\n')
         self.serial.write(text)
     def read(self, A):
-        self.old = self.inser
-        self.inser = ""
-        while(self.serial.available()):
-            self.inser += chr(self.serial.read())
-        if(self.inser == '@%clear'):
-            lcd.clear()
-            self.inser = self.old
-            return(self.inser)
-        elif("@%pos" in self.inser):
-            x = self.inser[5]
-            #print(x)
-            y = self.inser[7:]
-            #print(y)
-            lcd.setpos(x, y)
-            self.inser = self.old
-            return(self.inser)
-        else:
-            return(self.inser)
+        #self.clear()
+        self.inser = str(self.serial.serial.readline())
+        return(self.inser)
     def available(self):
         return(self.serial.available())
     def begin(self, baud):
@@ -279,9 +265,30 @@ while 1:
     i = 0
     #print(Serial.available())
     if(Serial.available()):
-        text = Serial.read(10)
+        encoding = 'utf-8'
+        text = Serial.read(10).encode().decode(encoding)
+        text = text.replace("b'", '')
+        text = text.replace("'", '')
+        lent = len(text) - 2
+        text = text[0:lent]
         print(text)
         
-        lcd.write(text)
+        if('@clear' in text):
+            print("clear")
+            lcd.clear()
+            lcd.render()
+            text = str.replace(text, "@clear", '')
+            lcd.write(text)
+        elif("@%pos" in text):
+            text = text.replace("@%pos", '')
+            print(text)
+            print('change pos')
+            x = text[0]
+            #print(x)
+            y = text[2:]
+            print(x, y)
+            lcd.setpos(x, y)
+        else:
+            lcd.write(text)
         Serial.clear()
     lcd.render()
