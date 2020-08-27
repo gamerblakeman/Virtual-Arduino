@@ -19,39 +19,39 @@ def init(renderA, pinA, SerialA, lcdA, starttime):
     render = renderA
     pin = pinA
     initsc(render, pin, starttime)
+A0, A1, A2, A3, A4, A5 = "A0","A1","A2","A3","A4","A5"
 
-"""
-DigitalReadSerial
+rs, en, d4, d5, d6, d7 = 12,  11,  5,  4,  3,  2
 
-Reads a digital input on pin 2, prints the result to the Serial Monitor
+analogPin = A3
+val = 0
 
-This example code is in the public domain.
-
-http:#www.arduino.cc/en/Tutorial/DigitalReadSerial
-"""
-# digital pin 2 has a pushbutton attached to it. Give it a name:
-pushButton = 2
-
-# the setup routine runs once when you press reset:
 def  setup() :
-    # initialize serial communication at 9600 bits per second:
-    Serial.begin(9600)
-    # make the pushbutton's pin an input:
-    pinMode(pushButton, INPUT)
-    pinMode(LED_BUILTIN, INPUT)
-    # set up the LCD's number of columns and rows:
+    pin.disable([rs, en, d4, d5, d6, d7]) 
+    # put your setup code here, to run once:
     lcd.begin(16, 2)
     # Pra message to the LCD.
     lcd.print("hello, world!")
+    Serial.begin(9600)
+    Serial.println("hello")
+    pinMode(A1, INPUT)
+    pinMode(6, INPUT)
+    pinMode(A0, INPUT)
+    pinMode(7, INPUT)
+    lcd.clear()
     
 
-# the loop routine runs over and over again forever:
 def  script() :
-    # read the input pin:
-    buttonState = digitalRead(pushButton)
-    digitalWrite(LED_BUILTIN, buttonState)
-    # prout the state of the button:
-    lcd.setCursor(0, 1)
-    lcd.print(buttonState)
-    sleep(0.001)    # delay in between reads for stability
+    # put your main code here, to run repeatedly:
+    lcd.clear()
+    lcd.setCursor(0, 0)
+    val = analogRead(A1)  # read the input pin
+    analogWrite(6,val)
+    lcd.print(val)
+    lcd.setCursor(1, 0)
+    val = analogRead(A0)  # read the input pin
+    analogWrite(7,val)
+    lcd.print(val)
+    sleep(0.2)
+    
     
