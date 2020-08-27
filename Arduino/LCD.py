@@ -166,7 +166,7 @@ class Box:
         lcd.screen2.blit(self.img, [self.x,self.y])
         
     def chageimg(self, file):
-        self.img = pygame.image.load("./arduino/resources/images/"+file+".png")
+        self.img = pygame.image.load("./Arduino/resources/images/"+file+".png")
     def addtext(self, text, font):
         self.text = font.render(text, True, [255,255,255]) 
 class SerialEmulator(object):
