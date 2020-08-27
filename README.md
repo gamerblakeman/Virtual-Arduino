@@ -11,10 +11,10 @@ Use Python 3!!</br>
   PyGame Widgets (https://pypi.org/project/pygame-widgets/)</br>
   pySerial (https://pypi.org/project/pyserial/)</br>
   colour (https://pypi.org/project/colour/)</br>
+  DateTime (https://pypi.org/project/DateTime/)
   </br>
 <h2>Comes with python:</h2></br>
 </br>
-  Datetime</br>
   OS</br>
   Time</br>
   Multiprocessing</br>
