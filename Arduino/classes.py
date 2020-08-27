@@ -20,7 +20,7 @@ class SerialEmulator(object):
     def __init__(self, device_port='./Serial/ttydevice', client_port='./Serial/ttyclient', baud=9600):
         self.device_port = device_port
         self.client_port = client_port
-        cmd=['/usr/local/Cellar/socat/1.7.3.4/bin/socat','-d','-d','PTY,link=%s,raw,echo=0' % self.device_port, 'PTY,link=%s,raw,echo=0' % self.client_port]
+        cmd=['socat','-d','-d','PTY,link=%s,raw,echo=0' % self.device_port, 'PTY,link=%s,raw,echo=0' % self.client_port]
         self.proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         time.sleep(1)
         self.serial = serial.Serial(self.device_port, baud, rtscts=True, dsrdtr=True)
