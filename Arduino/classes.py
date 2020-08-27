@@ -91,7 +91,7 @@ class Box:
         screen.blit(self.img, [self.x,self.y])
         
     def chageimg(self, file):
-        self.img = pygame.image.load("./arduino/resources/images/"+file+".png")
+        self.img = pygame.image.load("./Arduino/resources/images/"+file+".png")
     
     def voltage(self, v):
         if(v > 4.5):
