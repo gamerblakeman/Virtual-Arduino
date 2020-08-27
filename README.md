@@ -27,3 +27,4 @@ Use Python 3!!</br>
   place code in root directory</br>
   Compile code with compile.sh</br>
   Run use the start.sh script!!!</br>
+  For accsess to serial use ./Serial/ttyclient (I will be including a serial interface eventualy)</br>
