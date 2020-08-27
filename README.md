@@ -4,6 +4,7 @@ Written in Python</br>
 Use Python 3!!</br>
 <h2>Only tested and works on:</h2></br>
   Mac OS</br>
+  Ubutu/Deb</br>
   More to come soon</br>
 </br>
 <h2>Requirements:</h2></br>
